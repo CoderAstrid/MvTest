@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="19.05.0.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>* Read bar codes of type Code 128</c>
+<c>* </c>
+<l>create_bar_code_model ([], [], BarCodeHandle)</l>
+<l>dev_close_window ()</l>
+<l>dev_open_window (0, 0, 600, 600, 'black', WindowHandle)</l>
+<l>set_display_font (WindowHandle, 16, 'mono', 'true', 'false')</l>
+<l>dev_set_draw ('margin')</l>
+<l>dev_set_color ('green')</l>
+<l>dev_set_line_width (3)</l>
+<l>read_image (Image, 'F:/Data/Barcode/test_error/20210817062009009.jpg')</l>
+<l>dev_resize_window_fit_image (Image, 0, 0, -1, -1)</l>
+<l>find_bar_code (Image, SymbolRegions, BarCodeHandle, 'auto', DecodedDataStrings)</l>
+<l>get_bar_code_result(BarCodeHandle, 0, 'decoded_types', res)</l>
+<l>area_center (SymbolRegions, Area, Row, Column)</l>
+<l>dev_display (Image)</l>
+<l>dev_display (SymbolRegions)</l>
+<l>dev_disp_text (DecodedDataStrings, 'image', Row - 30, Column - 90, 'black', 'box_color', '#fce9d4cc')</l>
+<c></c>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
