@@ -77,23 +77,8 @@ protected:
 	CBCGPButton m_btnLast;
 	CBCGPEdit m_edtFileNum;
 	CBCGPStatic m_lblTotal;
-	//CBCGPComboBox m_cbDetAlgo;
 	CBCGPButton m_btnRecog;
-	//CBCGPEdit m_edtMagThr;
-	//CBCGPEdit m_edtSmoothWin;
-	//CBCGPEdit m_edtMinEdge;
-	//CBCGPEdit m_edtLocBlock;
-	//CBCGPEdit m_edtMinDensity;
-	//CBCGPEdit m_edtMaxDist;
-	//CBCGPSpinButtonCtrl m_spinMagThr;
-	//CBCGPSpinButtonCtrl m_spinSmoothWin;
-	//CBCGPSpinButtonCtrl m_spinMinEdge;
-	//CBCGPSpinButtonCtrl m_spinLocBlock;
-	//CBCGPSpinButtonCtrl m_spinMinDensity;
-	//CBCGPSpinButtonCtrl m_spinMaxDist;
-	//CBCGPButton m_chkMidRes;
 	CBCGPButton m_chkAllSame;
-	//CBCGPButton m_chkFastMode;
 	CBCGPSpinButtonCtrl m_spinCodeLen;
 	CBCGPEdit m_edtCodeLen;
 public:
@@ -108,23 +93,8 @@ public:
 	afx_msg void OnEnChangeEditNum();	
 	afx_msg void OnBnClickedBtnNext();
 	afx_msg void OnBnClickedBtnLast();	
-	
-	//afx_msg void OnCbnSelchangeCbDetect();	
 	afx_msg void OnBnClickedBtnProc();
-	//afx_msg void OnEnChangeEditMagThr();
-	//afx_msg void OnEnChangeEditSmoothWin();
-	//afx_msg void OnEnChangeEditMinEdge();
-	//afx_msg void OnEnChangeEditLocWin();
-	//afx_msg void OnEnChangeEditMinDensity();
-	//afx_msg void OnEnChangeEditMaxDist();
-	
-	//afx_msg void OnBnClickedChkMidres();	
 	afx_msg void OnBnClickedChkAllSame();
-	
-	//afx_msg void OnBnClickedChkFastMode();
-	
-	//afx_msg void OnStnClickedLblCodelen();
-	//afx_msg void OnDeltaposSpinMaxDist(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnEnChangeEditMinCodeLen();
-	
+	afx_msg void OnEnChangeEditMinCodeLen();	
 };
+//.EOF

@@ -39,19 +39,6 @@ typedef _finddata_t FindData;
 #	define FindNext	_tfindnext
 #endif//_WIN64
 
-/*
-e_codeDetDeformableTemplates,
-e_codeDetScaleRotationInvariant,
-e_codeDetBlurResistantJoint,
-e_codeDetDnn,
-*/
-const CString DET_ALGORITHM_NAME[] = {
-	_T("Deformable templates(1D)"),
-	_T("Scale and Rotation Invariant(1D)"),
-	_T("Blur-resistant joint(1,2D)"),
-	_T("Image Processing")
-};
-// CAboutDlg dialog used for App About
 
 class CAboutDlg : public CDialogEx
 {
@@ -132,23 +119,8 @@ void CRecogDemoDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LBL_TOTAL, m_lblTotal);
 	DDX_Control(pDX, IDC_BTN_NEXT, m_btnNext);
 	DDX_Control(pDX, IDC_BTN_LAST, m_btnLast);
-	//DDX_Control(pDX, IDC_CB_DETECT, m_cbDetAlgo);
 	DDX_Control(pDX, IDC_BTN_PROC, m_btnRecog);
-	//DDX_Control(pDX, IDC_EDIT_MAG_THR, m_edtMagThr);
-	//DDX_Control(pDX, IDC_EDIT_SMOOTH_WIN, m_edtSmoothWin);
-	//DDX_Control(pDX, IDC_EDIT_MIN_EDGE, m_edtMinEdge);
-	//DDX_Control(pDX, IDC_EDIT_LOC_WIN, m_edtLocBlock);
-	//DDX_Control(pDX, IDC_EDIT_MIN_DENSITY, m_edtMinDensity);
-	//DDX_Control(pDX, IDC_EDIT_MAX_DIST, m_edtMaxDist);
-	//DDX_Control(pDX, IDC_SPIN_MAG_THR, m_spinMagThr);
-	//DDX_Control(pDX, IDC_SPIN_SMOOTH_WIN, m_spinSmoothWin);
-	//DDX_Control(pDX, IDC_SPIN_MIN_EDGE, m_spinMinEdge);
-	//DDX_Control(pDX, IDC_SPIN_LOC_WIN, m_spinLocBlock);
-	//DDX_Control(pDX, IDC_SPIN_MIN_DENSITY, m_spinMinDensity);
-	//DDX_Control(pDX, IDC_SPIN_MAX_DIST, m_spinMaxDist);
-	//DDX_Control(pDX, IDC_CHK_MIDRES, m_chkMidRes);
 	DDX_Control(pDX, IDC_CHK_ALL_SAME, m_chkAllSame);
-	//DDX_Control(pDX, IDC_CHK_FAST_MODE, m_chkFastMode);
 	DDX_Control(pDX, IDC_SPIN_MIN_CODE_LEN, m_spinCodeLen);
 	DDX_Control(pDX, IDC_EDIT_MIN_CODE_LEN, m_edtCodeLen);
 }
@@ -169,19 +141,8 @@ BEGIN_MESSAGE_MAP(CRecogDemoDlg, CBCGPDialog)
 	ON_EN_CHANGE(IDC_EDIT_NUM, &CRecogDemoDlg::OnEnChangeEditNum)
 	ON_BN_CLICKED(IDC_BTN_NEXT, &CRecogDemoDlg::OnBnClickedBtnNext)
 	ON_BN_CLICKED(IDC_BTN_LAST, &CRecogDemoDlg::OnBnClickedBtnLast)
-	//ON_CBN_SELCHANGE(IDC_CB_DETECT, &CRecogDemoDlg::OnCbnSelchangeCbDetect)
 	ON_BN_CLICKED(IDC_BTN_PROC, &CRecogDemoDlg::OnBnClickedBtnProc)
-	//ON_EN_CHANGE(IDC_EDIT_MAG_THR, &CRecogDemoDlg::OnEnChangeEditMagThr)
-	//ON_EN_CHANGE(IDC_EDIT_SMOOTH_WIN, &CRecogDemoDlg::OnEnChangeEditSmoothWin)
-	//ON_EN_CHANGE(IDC_EDIT_MIN_EDGE, &CRecogDemoDlg::OnEnChangeEditMinEdge)
-	//ON_EN_CHANGE(IDC_EDIT_LOC_WIN, &CRecogDemoDlg::OnEnChangeEditLocWin)
-	//ON_EN_CHANGE(IDC_EDIT_MIN_DENSITY, &CRecogDemoDlg::OnEnChangeEditMinDensity)
-	//ON_EN_CHANGE(IDC_EDIT_MAX_DIST, &CRecogDemoDlg::OnEnChangeEditMaxDist)
-	//ON_BN_CLICKED(IDC_CHK_MIDRES, &CRecogDemoDlg::OnBnClickedChkMidres)
 	ON_BN_CLICKED(IDC_CHK_ALL_SAME, &CRecogDemoDlg::OnBnClickedChkAllSame)
-	//ON_BN_CLICKED(IDC_CHK_FAST_MODE, &CRecogDemoDlg::OnBnClickedChkFastMode)
-	//ON_STN_CLICKED(IDC_LBL_CODELEN, &CRecogDemoDlg::OnStnClickedLblCodelen)
-	//ON_NOTIFY(UDN_DELTAPOS, IDC_SPIN_MAX_DIST, &CRecogDemoDlg::OnDeltaposSpinMaxDist)
 	ON_EN_CHANGE(IDC_EDIT_MIN_CODE_LEN, &CRecogDemoDlg::OnEnChangeEditMinCodeLen)
 END_MESSAGE_MAP()
 
@@ -194,9 +155,6 @@ BOOL CRecogDemoDlg::OnInitDialog()
 {
 	CBCGPDialog::OnInitDialog();
 
-	// Add "About..." menu item to system menu.
-
-	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
@@ -214,12 +172,9 @@ BOOL CRecogDemoDlg::OnInitDialog()
 		}
 	}
 
-	// Set the icon for this dialog.  The framework does this automatically
-	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	//  [7/8/2021 Jewel]
 	CRect rc1;
 	GetDlgItem(IDC_PIC1)->GetWindowRect(&rc1);
 	ScreenToClient(&rc1);
@@ -233,55 +188,17 @@ BOOL CRecogDemoDlg::OnInitDialog()
 
 	CMFCDynamicLayout* dynamicLayout = GetDynamicLayout();
 	dynamicLayout->AddItem(m_wndBar.GetSafeHwnd(), CMFCDynamicLayout::MoveNone(), CMFCDynamicLayout::SizeHorizontalAndVertical(100, 100));
-// 
-// 	for (int i = 0; i < e_codeDetDnn; i++) {
-// 		m_cbDetAlgo.AddString(DET_ALGORITHM_NAME[i]);
-// 	}
-// 	m_cbDetAlgo.SetCurSel(1);
 
 	for (int i = 0; i < eCntResIdx; i++) {
 		m_lstRes.InsertColumn(i, ResultItemName[i], 0, ResIdxWidth[i]);
 	}
-
+	m_lstRes.SetExtendedStyle(m_lstRes.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	sv_get_param(&m_param);
 	CString s;
-// 	m_spinMagThr.SetRange32(1, 100);
-// 	s.Format(_T("%d"), m_param.thrMag);
-// 	m_edtMagThr.SetWindowText(s);
-// 
-// 	m_spinSmoothWin.SetRange32(3, 51);
-// 	s.Format(_T("%d"), m_param.smoothWinSz);
-// 	m_edtSmoothWin.SetWindowText(s);
-// 
-// 	m_spinMinEdge.SetRange32(3, 51);
-// 	s.Format(_T("%d"), m_param.minEdgeT);
-// 	m_edtMinEdge.SetWindowText(s);
-// 
-// 	m_spinLocBlock.SetRange32(3, 51);
-// 	s.Format(_T("%d"), m_param.localBlockSz);
-// 	m_edtLocBlock.SetWindowText(s);
-// 
-// 	m_spinMinDensity.SetRange32(0, 10);
-// 	s.Format(_T("%d"), (int)(m_param.minDensityEdgeT * 10.0));
-// 	m_edtMinDensity.SetWindowText(s);
-// 
-// 	m_spinMaxDist.SetRange32(3, 51);
-// 	s.Format(_T("%d"), m_param.maxDistLines);
-// 	m_edtMaxDist.SetWindowText(s);
-
 	m_spinCodeLen.SetRange32(0, 20);
 	s.Format(_T("%d"), m_param.minStringLength);
 	m_edtCodeLen.SetWindowText(s);
-
-//	m_chkMidRes.SetCheck(m_param.isShowMidRes ? BST_CHECKED : BST_UNCHECKED);
 	m_chkAllSame.SetCheck(m_param.isAllSame ? BST_CHECKED : BST_UNCHECKED);
-//	m_chkFastMode.SetCheck(m_param.isFastMode ? BST_CHECKED : BST_UNCHECKED);
-#if 0
-	cv::Mat im = cv::imread("E:\\Data\\Barcode\\20210721103632032.jpg");
-	char resBar[256];
-	int bpp = 24;
-	sv_engine_rec(im.data, im.cols, im.rows, bpp, false, resBar);
-#endif
 
 	m_bParamDirty = FALSE;
 
@@ -376,14 +293,12 @@ HCURSOR CRecogDemoDlg::OnQueryDragIcon()
 
 void CRecogDemoDlg::OnBnClickedOk()
 {
-	// TODO: Add your control notification handler code here
 	CBCGPDialog::OnOK();
 }
 
 
 void CRecogDemoDlg::OnBnClickedCancel()
 {
-	// TODO: Add your control notification handler code here
 	CBCGPDialog::OnCancel();
 }
 
@@ -527,20 +442,32 @@ void CRecogDemoDlg::ProcessingFile()
 {
 	if (m_iCurFileIdx < 0 || m_iCurFileIdx >= m_aFilePath.size())
 		return;
+	m_lstRes.SetFocus();
 	CString filename;
-	filename.Format(_T("%s\\%s"), m_sFolderPath, m_aFilePath[m_iCurFileIdx]);
+	filename.Format(_T("%s%s"), m_sFolderPath, m_aFilePath[m_iCurFileIdx]);
 
-	CT2A pss(filename);
-	std::string path(pss.m_psz);
 	CxImage img;
-	if (!img.Load(filename))
+	CString sExt;
+	int k = filename.ReverseFind('.');
+	if (k < 0)
 		return;
+	sExt = filename.Mid(k + 1);
+	UINT typeID = CxImage::GetTypeIdFromName(sExt);
+	if (!img.Load(filename, typeID))
+		return;
+
+	BOOL isGray = img.IsGrayScale();
+	BOOL isIndex = img.IsIndexed();
+	int bpp = img.GetBpp();
 	
-	m_wndBar.SetImage(img.GetBits(), img.GetWidth(), img.GetHeight());
+	if (bpp == 8 && isIndex && !isGray)
+		isGray = img.GrayScale();
+
+	m_wndBar.SetImage(img.GetBits(), img.GetWidth(), img.GetHeight(), bpp);
 	int n = m_lstRes.GetItemCount();
 	CString s;
 	s.Format(_T("%d"), n + 1);
-	int k = m_lstRes.InsertItem(n, s);
+	k = m_lstRes.InsertItem(n, s);
 	m_lstRes.SetItemText(k, eResIdxFile, filename);
 	s.Format(_T("%d X %d"), img.GetWidth(), img.GetHeight());
 	m_lstRes.SetItemText(k, eResIdxDim, s);
@@ -550,21 +477,25 @@ void CRecogDemoDlg::ProcessingFile()
 	auto tm = getLongTimer();
 	CodeRecogRes* pRes = NULL;
 
-	int bpp = img.GetBpp();
-	int count = sv_engine_rec(img.GetBits(), img.GetWidth(), img.GetHeight(), bpp, &pRes);
+	int res = sv_engine_rec(img.GetBits(), img.GetWidth(), img.GetHeight(), bpp, &pRes);
+	if (res < 0)
+		res = 0;
 	double ms = getTickNow(tm);
 
 	s.Format(_T("%g ms"), ms);
 	m_lstRes.SetItemText(k, eResIdxTime, s);
 
-	s.Format(_T("%d"), count);
+	s.Format(_T("%d"), res);
 	m_lstRes.SetItemText(k, eResIdxCnt, s);
 
-	m_pViewModel->SetBarcodeResult(count, pRes);
+	m_pViewModel->SetBarcodeResult(res, pRes);
 
 	if (pRes) {
 		CoTaskMemFree(pRes);
 	}
+
+	m_lstRes.SetItemState(k, LVIS_SELECTED, LVIS_SELECTED);
+	m_lstRes.EnsureVisible(k, FALSE);
 }
 
 void CRecogDemoDlg::UpdateParam()
@@ -572,28 +503,7 @@ void CRecogDemoDlg::UpdateParam()
 	if (!m_bParamDirty)
 		return;
 	CString s;
-	
-// 	m_edtMagThr.GetWindowText(s);
-// 	m_param.thrMag = _ttoi(s);
-// 
-// 	m_edtSmoothWin.GetWindowText(s);
-// 	m_param.smoothWinSz = _ttoi(s);
-// 
-// 	m_edtMinEdge.GetWindowText(s);
-// 	m_param.minEdgeT = _ttoi(s);
-// 
-// 	m_edtLocBlock.GetWindowText(s);
-// 	m_param.localBlockSz = _ttoi(s);
-// 
-// 	m_edtMinDensity.GetWindowText(s);
-// 	m_param.minDensityEdgeT = (double)_ttoi(s) / 10.0;
-// 
-// 	m_edtMaxDist.GetWindowText(s);
-// 	m_param.maxDistLines = _ttoi(s);
-// 
-// 	m_param.isShowMidRes = (m_chkMidRes.GetCheck() == BST_CHECKED);
 	m_param.isAllSame = (m_chkAllSame.GetCheck() == BST_CHECKED);
-//	m_param.isFastMode = (m_chkFastMode.GetCheck() == BST_CHECKED);
 
 	m_edtCodeLen.GetWindowText(s);
 	m_param.minStringLength = _ttoi(s);
@@ -612,7 +522,6 @@ void CRecogDemoDlg::OnBnClickedBtnFirst()
 
 void CRecogDemoDlg::OnBnClickedBtnCont()
 {
-	// TODO: Add your control notification handler code here
 }
 
 
@@ -648,87 +557,14 @@ void CRecogDemoDlg::OnBnClickedBtnLast()
 	UpdateCtrlBar();
 }
 
-// 
-// void CRecogDemoDlg::OnCbnSelchangeCbDetect()
-// {
-// 	int iCur = m_cbDetAlgo.GetCurSel();
-// 	if (iCur < 0)
-// 		return;
-// 	sv_engine_set_codedet_algorithm((CodeDetAlgo)iCur);
-// }
-
-
 void CRecogDemoDlg::OnBnClickedBtnProc()
 {
 	ProcessingFile();
 }
-// 
-// 
-// void CRecogDemoDlg::OnEnChangeEditMagThr()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnEnChangeEditSmoothWin()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnEnChangeEditMinEdge()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnEnChangeEditLocWin()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnEnChangeEditMinDensity()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnEnChangeEditMaxDist()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnBnClickedChkMidres()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
 void CRecogDemoDlg::OnBnClickedChkAllSame()
 {
 	m_bParamDirty = TRUE;
 }
-// 
-// 
-// void CRecogDemoDlg::OnBnClickedChkFastMode()
-// {
-// 	m_bParamDirty = TRUE;
-// }
-// 
-// 
-// void CRecogDemoDlg::OnStnClickedLblCodelen()
-// {
-// }
-// 
-// 
-// void CRecogDemoDlg::OnDeltaposSpinMaxDist(NMHDR *pNMHDR, LRESULT *pResult)
-// {
-// 	LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
-// 	*pResult = 0;
-// }
-
 
 void CRecogDemoDlg::OnEnChangeEditMinCodeLen()
 {

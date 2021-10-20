@@ -19,6 +19,7 @@ CPicWnd::CPicWnd()
 	: m_iWidth(0)
 	, m_iHeight(0)
 	, m_pViewModel(NULL)
+	, m_iBpp(8)
 {
 	m_nCntFps = 0;
 	m_ullStartTime = 0U;
@@ -45,28 +46,35 @@ void CPicWnd::SetModel(IImageViewModel* pModel)
 	m_pViewModel = pModel;
 }
 
-void CPicWnd::SetImage(BYTE* pBuf, int w, int h)
+void CPicWnd::SetImage(BYTE* pBuf, int w, int h, int bpp)
 {	
-	if (m_iWidth == w && m_iHeight == h) {
+	if (m_iWidth == w && m_iHeight == h & m_iBpp == bpp) {
 
 	}
-	else {
-		
+	else {		
 		if (m_image.IsValid()) {
 			m_image.Destroy();
 			m_iWidth = m_iHeight = 0;
 		}
 		m_iWidth = w;
 		m_iHeight = h;
-		m_image.Create(w, h, 24);		
+		m_image.Create(w, h, bpp);
+		m_iBpp = bpp;
+		if (bpp == 8) {
+			m_image.Clear(0);
+			m_image.SetGrayPalette();
+		}
 	}
+
 	BYTE* pLineSrc = pBuf;
+	int wex = 4 * ((w * bpp + 31) / 32);
 	for (int i = h-1; i >= 0; i--) {
 		int y = i; // h - 1 - i;
 		BYTE* pLine = m_image.GetBits(y);
-		memcpy(pLine, pLineSrc, w * 3);
-		pLineSrc += w * 3;
+		memcpy(pLine, pLineSrc, w * bpp / 8);
+		pLineSrc += wex;
 	}
+	m_image.Save(_T("D:\\1.bmp"), CXIMAGE_FORMAT_BMP);
 
 	if (m_nCntFps == 0)
 		m_ullStartTime = GetTickCount64();

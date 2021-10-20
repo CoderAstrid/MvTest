@@ -25,7 +25,7 @@ public:
 	virtual ~CPicWnd();
 
 	BOOL CreateWnd(CWnd* pParent, const RECT& rc, UINT nID, int id);
-	void SetImage(BYTE* pBuf, int w, int h);
+	void SetImage(BYTE* pBuf, int w, int h, int bpp);
 
 	int GetRealWidth() const { return m_iWidth; }
 	int GetRealHeight() const { return m_iHeight; }
@@ -34,6 +34,7 @@ private:
 	CxImage m_image;
 	int		m_iWidth;
 	int		m_iHeight;
+	int		m_iBpp;
 	int		m_id;
 	ULONGLONG  m_ullStartTime;
 	int			m_nCntFps;
