@@ -6,16 +6,18 @@
 <c>* Read bar codes of type Code 128</c>
 <c>* </c>
 <l>create_bar_code_model ([], [], BarCodeHandle)</l>
+<l>CodeType := ['EAN-13', 'Code 128', 'Code 39', 'Code 93']</l>
+<l>* CodeType := 'auto'</l>
 <l>dev_close_window ()</l>
 <l>dev_open_window (0, 0, 600, 600, 'black', WindowHandle)</l>
 <l>set_display_font (WindowHandle, 16, 'mono', 'true', 'false')</l>
 <l>dev_set_draw ('margin')</l>
 <l>dev_set_color ('green')</l>
 <l>dev_set_line_width (3)</l>
-<l>read_image (Image, 'F:/Data/Barcode/test_error/20210817062009009.jpg')</l>
+<l>read_image (Image, 'D:/LogImages1/20211024/(01)10857701819687_20211024_210858c.jpg')</l>
 <l>dev_resize_window_fit_image (Image, 0, 0, -1, -1)</l>
-<l>find_bar_code (Image, SymbolRegions, BarCodeHandle, 'auto', DecodedDataStrings)</l>
-<l>get_bar_code_result(BarCodeHandle, 0, 'decoded_types', res)</l>
+<l>find_bar_code (Image, SymbolRegions, BarCodeHandle, CodeType, DecodedDataStrings)</l>
+<l>get_bar_code_result(BarCodeHandle, 'all', 'decoded_types', res)</l>
 <l>area_center (SymbolRegions, Area, Row, Column)</l>
 <l>dev_display (Image)</l>
 <l>dev_display (SymbolRegions)</l>

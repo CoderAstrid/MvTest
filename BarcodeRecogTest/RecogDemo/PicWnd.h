@@ -1,6 +1,7 @@
 ﻿/******************************************************************************
-\author	Astrid
-\date	10/17/2019
+\author:		Astrid
+\description:	view window of image and results using CxImage
+\date:			10/17/2019
 ******************************************************************************/
 #ifndef __IMAGEVIEWER_VIEWWNDJ_H__
 #define __IMAGEVIEWER_VIEWWNDJ_H__

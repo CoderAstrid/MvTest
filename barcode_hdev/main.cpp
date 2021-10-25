@@ -56,12 +56,19 @@ void action()
   HObject  ho_Image, ho_SymbolRegions;
 
   // Local control variables
-  HTuple  hv_BarCodeHandle, hv_WindowHandle, hv_DecodedDataStrings;
-  HTuple  hv_res, hv_Area, hv_Row, hv_Column;
+  HTuple  hv_BarCodeHandle, hv_CodeType, hv_WindowHandle;
+  HTuple  hv_DecodedDataStrings, hv_res, hv_Area, hv_Row;
+  HTuple  hv_Column;
 
   //Read bar codes of type Code 128
   //
   CreateBarCodeModel(HTuple(), HTuple(), &hv_BarCodeHandle);
+  hv_CodeType.Clear();
+  hv_CodeType[0] = "EAN-13";
+  hv_CodeType[1] = "Code 128";
+  hv_CodeType[2] = "Code 39";
+  hv_CodeType[3] = "Code 93";
+  //CodeType := 'auto'
   if (HDevWindowStack::IsOpen())
     CloseWindow(HDevWindowStack::Pop());
   SetWindowAttr("background_color","black");
@@ -74,10 +81,10 @@ void action()
     SetColor(HDevWindowStack::GetActive(),"green");
   if (HDevWindowStack::IsOpen())
     SetLineWidth(HDevWindowStack::GetActive(),3);
-  ReadImage(&ho_Image, "F:/Data/Barcode/test_error/20210817062009009.jpg");
+  ReadImage(&ho_Image, "D:/LogImages1/20211024/(01)10857701819687_20211024_210858c.jpg");
   dev_resize_window_fit_image(ho_Image, 0, 0, -1, -1);
-  FindBarCode(ho_Image, &ho_SymbolRegions, hv_BarCodeHandle, "auto", &hv_DecodedDataStrings);
-  GetBarCodeResult(hv_BarCodeHandle, 0, "decoded_types", &hv_res);
+  FindBarCode(ho_Image, &ho_SymbolRegions, hv_BarCodeHandle, hv_CodeType, &hv_DecodedDataStrings);
+  GetBarCodeResult(hv_BarCodeHandle, "all", "decoded_types", &hv_res);
   AreaCenter(ho_SymbolRegions, &hv_Area, &hv_Row, &hv_Column);
   if (HDevWindowStack::IsOpen())
     DispObj(ho_Image, HDevWindowStack::GetActive());

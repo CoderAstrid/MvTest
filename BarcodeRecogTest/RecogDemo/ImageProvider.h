@@ -1,8 +1,9 @@
-#ifndef __BARCODE_RECOGAPP_VIEWMODEL_ABSTRACTJ_H__
-#define __BARCODE_RECOGAPP_VIEWMODEL_ABSTRACTJ_H__
+#ifndef __BARCODE_RECOGAPP_IMAGEPROVIDER_ABSTRACTJ_H__
+#define __BARCODE_RECOGAPP_IMAGEPROVIDER_ABSTRACTJ_H__
 
 #include "dev_macro.h"
 #include <vector>
+
 #if _DEV_CAM_MODE
 #	include "cysuvclib.h"
 #endif//_DEV_CAM_MODE
@@ -75,5 +76,5 @@ private:
 #endif//_DEV_CAM_MODE
 	CWnd*					m_pParent;
 };
-#endif//__BARCODE_RECOGAPP_VIEWMODEL_ABSTRACTJ_H__
+#endif//__BARCODE_RECOGAPP_IMAGEPROVIDER_ABSTRACTJ_H__
 //.EOF

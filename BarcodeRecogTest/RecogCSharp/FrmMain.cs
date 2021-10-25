@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -206,14 +201,6 @@ namespace RecogCSharp
                             }
                             e.Graphics.DrawPolygon(pen, pts);
                         }
-                        /*
-                        Rectangle ee = new Rectangle(
-                            a.rcRoi.left * wp / w,
-                            a.rcRoi.top * hp / h,
-                            (a.rcRoi.right - a.rcRoi.left) * wp / w,
-                            (a.rcRoi.bottom - a.rcRoi.top) * hp / h);
-                        e.Graphics.DrawRectangle(pen, ee);
-                        */
                         string str_out = new string(a.sText);
                         int len = str_out.IndexOf('\0');
                         str_out = new String(a.sText, 0, len);
@@ -227,3 +214,4 @@ namespace RecogCSharp
         }
     }
 }
+//.EOF

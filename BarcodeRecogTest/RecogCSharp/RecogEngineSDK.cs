@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * .Net Wrapping of RecogEngine.h
+ */
+
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -149,7 +153,11 @@ namespace RecogCSharp
         public static extern int QueryPerformanceFrequency(out Int64 iFrequency);
 
         private static Int64 m_iPerfFrequency = -1;
-
+        
+        /// <summary>
+        /// for test performance
+        /// </summary>
+        /// <returns>millisecond of double</returns>
         public static double GetPerfCounter()
         {
             // see if we need to get the frequency
@@ -171,3 +179,4 @@ namespace RecogCSharp
         }
     }
 }
+//.EOF

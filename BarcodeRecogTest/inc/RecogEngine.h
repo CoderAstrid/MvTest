@@ -3,15 +3,28 @@
 #include "RecogEngineDefine.h"
 
 #ifdef _USRDLL
-#define SREXP	extern "C" __declspec(dllexport)
+#	define SREXP	extern "C" __declspec(dllexport)
 #else
-#define SREXP	extern "C" __declspec(dllimport)
+#	define SREXP	extern "C" __declspec(dllimport)
 #endif//_USRDLL
 
+// main flowchart
+// sv_engine_init -> sv_engine_rec -> sv_engine_close
+
+// init engine
 SREXP int sv_engine_init();
+// shut down engine
 SREXP int sv_engine_close();
 
-SREXP int sv_engine_rec(unsigned char* _inBuf, int _inW, int _inH, int _inBpp, CodeRecogRes** _outRes);
+// recognition of barcode
+SREXP int						// [ret] error code(at errcode.h) or size of result array 
+sv_engine_rec(					
+	unsigned char*		_inBuf,	// [in]  buffer of input image
+	int					_inW,	// [in]  width of input image
+	int					_inH,	// [in]  height of input image
+	int					_inBpp, // [in]  bpp of input image(8 or 24)
+	CodeRecogRes** 		_outRes	// [out] array of result
+);
 
 SREXP int sv_engine_set_codedet_algorithm(CodeDetAlgo newAlgo);
 SREXP int sv_get_param(SvBarRecParams* param);

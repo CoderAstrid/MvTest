@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BARCODE_RECOGAPP_VIEWMODEL_ABSTRACTJ_H__
+#define __BARCODE_RECOGAPP_VIEWMODEL_ABSTRACTJ_H__
 
 class IImageViewModel {
 public:
@@ -10,3 +11,5 @@ public:
 protected:
 	CWnd* m_pView;
 };
+#endif//__BARCODE_RECOGAPP_VIEWMODEL_ABSTRACTJ_H__
+//.EOF

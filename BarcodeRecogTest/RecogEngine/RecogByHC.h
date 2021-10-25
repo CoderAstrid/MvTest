@@ -2,21 +2,13 @@
 #define __BARCODEREC_EMGINE_CLS_HALCONJ_H__
 
 #include "RecogEngineDefine.h"
-#include "HalconCpp.h"
-using namespace HalconCpp;
-
-#pragma comment(lib, "halcon.lib")
-#pragma comment(lib, "halconcpp.lib")
 #include <vector>
 
-typedef struct tagCodeRgnCorner
-{
-	POINT p[4];
-	tagCodeRgnCorner()
-	{
-		memset(p, 0, sizeof(p));
-	}
-}CodeRgnCorner, *LPCodeRgnCorner;
+// in order to link at halcon
+#include "HalconCpp.h"
+using namespace HalconCpp;
+#pragma comment(lib, "halcon.lib")
+#pragma comment(lib, "halconcpp.lib")
 
 typedef struct tagCodeRegionInfo
 {
@@ -60,11 +52,12 @@ public:
 private:
 	int FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h);
 private:
-	HTuple  hv_BarCodeHandle;
-	BOOL	m_bModelInited;
-	std::vector<CodeRegionInfo> m_aFounds;
-	SvBarRecParams	m_params;
-	BYTE* g_buf;
+	HTuple							m_tuModelHandel;
+	HTuple							hv_CodeType;
+	BOOL							m_bModelInited;
+	std::vector<CodeRegionInfo>		m_aFounds;
+	SvBarRecParams					m_params;
+	BYTE*							m_pGLBuf;
 };
 #endif//__BARCODEREC_EMGINE_CLS_HALCONJ_H__
 //.EOF

@@ -22,6 +22,7 @@ int sv_engine_close()
 {	
 	if (g_engine)
 		delete g_engine;
+	g_engine = NULL;
 
 	return svec_ok;
 }

@@ -28,6 +28,7 @@ bool compareInterval(const CodeRegionInfo& i1, const CodeRegionInfo& i2)
 
 CRecogByHC::CRecogByHC()
 	: m_bModelInited(FALSE)
+	, m_pGLBuf(NULL)
 {
 	
 }
@@ -35,8 +36,9 @@ CRecogByHC::CRecogByHC()
 
 CRecogByHC::~CRecogByHC()
 {
-	if (g_buf)
-		delete[] g_buf;
+	if (m_pGLBuf)
+		delete[] m_pGLBuf;
+	m_pGLBuf = NULL;
 }
 
 BOOL CRecogByHC::InitModel()
@@ -45,9 +47,17 @@ BOOL CRecogByHC::InitModel()
 	Herror  error_num;
 	try
 	{
-		CreateBarCodeModel(HTuple(), HTuple(), &hv_BarCodeHandle);
+		CreateBarCodeModel(HTuple(), HTuple(), &m_tuModelHandel);
 		m_bModelInited = TRUE;
-		g_buf = new BYTE[MAX_WIDTH * MAX_HEIGHT * 3];
+		m_pGLBuf = new BYTE[MAX_WIDTH * MAX_HEIGHT * 3];
+
+		hv_CodeType.Clear();
+		hv_CodeType[0] = "EAN-13";
+		hv_CodeType[1] = "Code 128";
+		hv_CodeType[2] = "Code 39";
+		hv_CodeType[3] = "Code 93";
+		hv_CodeType[4] = "EAN-8";
+		hv_CodeType[5] = "2/5 Industrial";
 	}
 	catch (HException &except)
 	{
@@ -83,11 +93,12 @@ int CRecogByHC::FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h)
 	HObject ho_SymbolRegions;
 
 	// for alignment memory
-	BYTE* pLine = g_buf;
+	BYTE* pLine = m_pGLBuf;
 	BYTE* pSrc = pBuf;
 	for (int i = 0; i < h; i++, pLine += w, pSrc += w)
 		memcpy(pLine, pSrc, w);
 
+	
 	m_aFounds.clear();
 
 	try {
@@ -99,7 +110,7 @@ int CRecogByHC::FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h)
 		return svec_cannot_alloc_image;
 	}
 	try {
-		FindBarCode(*img, &ho_SymbolRegions, hv_BarCodeHandle, "auto", &hv_DecodedDataStrings);
+		FindBarCode(*img, &ho_SymbolRegions, m_tuModelHandel, hv_CodeType, &hv_DecodedDataStrings);
 	}
 	catch (HException &except)
 	{
@@ -117,7 +128,7 @@ int CRecogByHC::FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h)
 		{
 			std::string s = hv_DecodedDataStrings[i].S().Text();
 			sn_string.push_back(s);
-			GetBarCodeResult(hv_BarCodeHandle, i, "decoded_types", &hv_res);
+			GetBarCodeResult(m_tuModelHandel, i, "decoded_types", &hv_res);
 			std::string p = hv_res.S().Text();
 			type_string.push_back(p);
 		}
@@ -197,7 +208,7 @@ int CRecogByHC::FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h)
 int CRecogByHC::RecognitionFromColor(BYTE* pBuf, int w, int h, CodeRecogRes** _outRes)
 {
 	int wex = 4 * ((w * 24 + 31) / 32);
-	BYTE* pGray = g_buf;
+	BYTE* pGray = m_pGLBuf;
 	BYTE* pLine = pBuf;
 	for (int y = 0; y < h; y++) {
 		for (int x = 0; x < w; x++)
@@ -207,7 +218,7 @@ int CRecogByHC::RecognitionFromColor(BYTE* pBuf, int w, int h, CodeRecogRes** _o
 		pLine += wex;
 		pGray += w;
 	}
-	int res = RecognitionFromGrayBuffer(g_buf, w, h, _outRes);
+	int res = RecognitionFromGrayBuffer(m_pGLBuf, w, h, _outRes);
 	return res;
 }
 
@@ -318,3 +329,4 @@ int CRecogByHC::RecognitionFromGrayBuffer(BYTE* pBuf, int w, int h, CodeRecogRes
 	}
 	return res;
 }
+//.EOF
