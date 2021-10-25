@@ -1,10 +1,9 @@
 ﻿/******************************************************************************
-\author	Jewel
+\author	Astrid
 \date	10/17/2019
 ******************************************************************************/
 
 #include "stdafx.h"
-#include "RecogDemo.h"
 #include "PicWnd.h"
 
 #ifdef _DEBUG
@@ -20,6 +19,7 @@ CPicWnd::CPicWnd()
 	, m_iHeight(0)
 	, m_pViewModel(NULL)
 	, m_iBpp(8)
+	, m_id(0)
 {
 	m_nCntFps = 0;
 	m_ullStartTime = 0U;

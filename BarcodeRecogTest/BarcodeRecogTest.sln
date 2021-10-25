@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RecogDemo", "RecogDemo\Reco
 		{3D7BA5BD-67D7-413F-BEAB-EB93CE04AC96} = {3D7BA5BD-67D7-413F-BEAB-EB93CE04AC96}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecogCSharp", "RecogCSharp\RecogCSharp.csproj", "{464D4F64-36E7-436C-B855-3396C7F5D297}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D7BA5BD-67D7-413F-BEAB-EB93CE04AC96} = {3D7BA5BD-67D7-413F-BEAB-EB93CE04AC96}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +39,14 @@ Global
 		{ACC50B46-9B5B-442A-BB32-158615D3DB81}.Release|x64.Build.0 = Release|x64
 		{ACC50B46-9B5B-442A-BB32-158615D3DB81}.Release|x86.ActiveCfg = Release|Win32
 		{ACC50B46-9B5B-442A-BB32-158615D3DB81}.Release|x86.Build.0 = Release|Win32
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Debug|x64.ActiveCfg = Debug|x64
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Debug|x64.Build.0 = Debug|x64
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Debug|x86.ActiveCfg = Debug|x86
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Debug|x86.Build.0 = Debug|x86
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Release|x64.ActiveCfg = Release|x64
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Release|x64.Build.0 = Release|x64
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Release|x86.ActiveCfg = Release|x86
+		{464D4F64-36E7-436C-B855-3396C7F5D297}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

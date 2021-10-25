@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __BARCODEREC_EMGINE_CLS_HALCONJ_H__
+#define __BARCODEREC_EMGINE_CLS_HALCONJ_H__
+
 #include "RecogEngineDefine.h"
 #include "HalconCpp.h"
 using namespace HalconCpp;
@@ -64,4 +66,5 @@ private:
 	SvBarRecParams	m_params;
 	BYTE* g_buf;
 };
-
+#endif//__BARCODEREC_EMGINE_CLS_HALCONJ_H__
+//.EOF

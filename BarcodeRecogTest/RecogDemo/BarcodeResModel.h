@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __BARCODE_RECOGAPP_VIEWMODEL_BARCODEJ_H__
+#define __BARCODE_RECOGAPP_VIEWMODEL_BARCODEJ_H__
+
 #include "IViewModel.h"
 #include <vector>
 #include "RecogEngineDefine.h"
@@ -16,3 +18,5 @@ private:
 	std::vector<CodeRecogRes> m_aRes;
 };
 
+#endif//__BARCODE_RECOGAPP_VIEWMODEL_BARCODEJ_H__
+//.EOF

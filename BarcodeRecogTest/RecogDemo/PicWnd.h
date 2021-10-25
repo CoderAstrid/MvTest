@@ -1,21 +1,16 @@
 ﻿/******************************************************************************
-\author	Jewel
+\author	Astrid
 \date	10/17/2019
 ******************************************************************************/
+#ifndef __IMAGEVIEWER_VIEWWNDJ_H__
+#define __IMAGEVIEWER_VIEWWNDJ_H__
 
-#pragma once
-#include "RecogEngineDefine.h"
 #include <vector>
 #include "IViewModel.h"
-//#include <afxwin.h>
-
-//#define _MSC_STDINT_H_		//  [9/26/2019 Jewel]
 
 #include "ximage/ximage.h"
 #pragma comment(lib, "cximagecrt.lib")
 
-
-// CPicWnd
 class CPicWnd : public CWnd
 {
 	DECLARE_DYNAMIC(CPicWnd)
@@ -24,7 +19,7 @@ public:
 	CPicWnd();
 	virtual ~CPicWnd();
 
-	BOOL CreateWnd(CWnd* pParent, const RECT& rc, UINT nID, int id);
+	BOOL CreateWnd(CWnd* pParent, const RECT& rc, UINT nCtrlID, int userID);
 	void SetImage(BYTE* pBuf, int w, int h, int bpp);
 
 	int GetRealWidth() const { return m_iWidth; }
@@ -47,4 +42,5 @@ public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
+#endif//__IMAGEVIEWER_VIEWWNDJ_H__
 //.EOF

@@ -66,7 +66,7 @@ typedef struct tagCodeRecogRes {
 	char	sText[128];
 	char	sType[64];
 
-	// if all same mode, have several regions.  [8/18/2021 Jewel]
+	// if all same mode, have several regions.  [8/18/2021 Astrid]
 	int		countRegion;				// code-rectangle count
 	int		corner_x[MAX_REGION * 4];	// code-rectangle x corner
 	int		corner_y[MAX_REGION * 4];	// code-rectangle y corner
