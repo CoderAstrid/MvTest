@@ -47,13 +47,16 @@ public:
 	BOOL InitModel();
 	int SetParam(const SvBarRecParams* param);
 	int GetParam(SvBarRecParams* param);
-	int RecognitionFromColor(BYTE* pBuf, int w, int h, CodeRecogRes** _outRes);
-	int RecognitionFromGrayBuffer(BYTE* pBuf, int w, int h, CodeRecogRes** _outRes);
+	int RecognitionFromColor(BYTE* pBuf, int w, int h, CodeRecType _type, CodeRecogRes** _outRes);
+	int RecognitionFromGrayBuffer(BYTE* pBuf, int w, int h, CodeRecType _type, CodeRecogRes** _outRes);
 private:
-	int FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h);
+	int FindAllCandiatesFromGrayBuf(BYTE* pBuf, int w, int h, CodeRecType _type);
+	int FindAllBarcodeFromHImage(const HImage& img);
+	int FindAllQRcodeFromHImage(const HImage& img);
 private:
-	HTuple							m_tuModelHandel;
-	HTuple							hv_CodeType;
+	HTuple							m_BarcodeModel;
+	HTuple							m_DataCodeModel;
+	HTuple							m_BarType;
 	BOOL							m_bModelInited;
 	std::vector<CodeRegionInfo>		m_aFounds;
 	SvBarRecParams					m_params;
