@@ -15,6 +15,14 @@
 #define SMALL_HEIGHT	1600
 #define MAX_REGION		4
 
+
+typedef enum E_CodeRecType {
+	e_codeNone = 0,
+	e_codeBarcode = 1,
+	e_codeDataCode = 2,
+	e_codeAllType = 3
+}CodeRecType;
+
 // Barcode Area Identification Algorithm
 typedef enum E_CodeDetAlgo {
 	e_codeDetDeformableTemplates,			// by Deformable Template
@@ -44,6 +52,8 @@ typedef struct tagSvBarRecParams
 	bool isShowMidRes;		// if true, show middle results
 	int  marginROI;			
 	int  minStringLength;	// minimum length of code string
+
+	char charset[128];		// char set
 	tagSvBarRecParams()
 	{
 		thrMag = 30;
@@ -59,6 +69,7 @@ typedef struct tagSvBarRecParams
 		isShowMidRes = false;
 		marginROI = 280;
 		minStringLength = 10;
+		strcpy_s(charset, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	}
 } SvBarRecParams, *LPSvBarRecParams;
 

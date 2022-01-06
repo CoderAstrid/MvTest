@@ -184,7 +184,7 @@ BOOL CRecogDemoDlg::OnInitDialog()
 	m_pViewModel->SetView(&m_wndBar);
 	m_wndBar.SetModel(m_pViewModel);
 
-	sv_engine_init();
+	sv_engine_init_v2();
 
 	CMFCDynamicLayout* dynamicLayout = GetDynamicLayout();
 	dynamicLayout->AddItem(m_wndBar.GetSafeHwnd(), CMFCDynamicLayout::MoveNone(), CMFCDynamicLayout::SizeHorizontalAndVertical(100, 100));
@@ -193,7 +193,7 @@ BOOL CRecogDemoDlg::OnInitDialog()
 		m_lstRes.InsertColumn(i, ResultItemName[i], 0, ResIdxWidth[i]);
 	}
 	m_lstRes.SetExtendedStyle(m_lstRes.GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
-	sv_get_param(&m_param);
+	sv_get_param_v2(&m_param);
 	CString s;
 	m_spinCodeLen.SetRange32(0, 20);
 	s.Format(_T("%d"), m_param.minStringLength);
@@ -307,7 +307,7 @@ void CRecogDemoDlg::OnDestroy()
 {
 	CBCGPDialog::OnDestroy();
 
-	sv_engine_close();
+	sv_engine_close_v2();
 	if (m_uThreadID != 0)
 	{
 		PostThreadMessage(m_uThreadID, TH_END_THREAD, 0, (LPARAM)this);
@@ -477,7 +477,7 @@ void CRecogDemoDlg::ProcessingFile()
 	auto tm = getLongTimer();
 	CodeRecogRes* pRes = NULL;
 
-	int res = sv_engine_rec(img.GetBits(), img.GetWidth(), img.GetHeight(), bpp, &pRes);
+	int res = sv_engine_rec_v2(img.GetBits(), img.GetWidth(), img.GetHeight(), bpp, 2, &pRes);
 	if (res < 0)
 		res = 0;
 	double ms = getTickNow(tm);
@@ -508,7 +508,7 @@ void CRecogDemoDlg::UpdateParam()
 	m_edtCodeLen.GetWindowText(s);
 	m_param.minStringLength = _ttoi(s);
 
-	sv_set_param(&m_param);
+	sv_set_param_v2(m_param);
 }
 
 void CRecogDemoDlg::OnBnClickedBtnFirst()
@@ -523,7 +523,6 @@ void CRecogDemoDlg::OnBnClickedBtnFirst()
 void CRecogDemoDlg::OnBnClickedBtnCont()
 {
 }
-
 
 void CRecogDemoDlg::OnBnClickedBtnPrev()
 {

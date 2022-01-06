@@ -42,7 +42,7 @@ namespace RecogCSharp
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            int res = RecogEngineSDK.SvEngineInit();
+            int res = RecogEngine2SDK.SvEngineInit();
             if(res < 0)
             {
                 MessageBox.Show("SDK Failed");
@@ -52,7 +52,7 @@ namespace RecogCSharp
 
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            int res = RecogEngineSDK.SvEngineClose();
+            int res = RecogEngine2SDK.SvEngineClose();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -86,6 +86,12 @@ namespace RecogCSharp
 
         private void update_controls()
         {
+            int codeType = 0;
+            if (chkBar.Checked)
+                codeType += 1;
+            if (chkQR.Checked)
+                codeType += 2;
+
             lblNumber.Text = (cur_file + 1).ToString() + "/" + image_files.Count.ToString();
             if (cur_file > 0)
             {
@@ -112,9 +118,9 @@ namespace RecogCSharp
             using (var gr = Graphics.FromImage(bmp))
                 gr.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height));
 
-            double tm = RecogEngineSDK.GetPerfCounter();
-            int iRes = RecogEngineSDK.SvEngineRec(bmp, ref recogRes);
-            tm = RecogEngineSDK.GetPerfCounter() - tm;
+            double tm = RecogEngine2SDK.GetPerfCounter();
+            int iRes = RecogEngine2SDK.SvEngineRec(bmp, codeType, ref recogRes);
+            tm = RecogEngine2SDK.GetPerfCounter() - tm;
 
             ListViewItem aLine = new ListViewItem();
 
@@ -211,6 +217,20 @@ namespace RecogCSharp
                     }
                 }
             }
+        }
+
+        private void btnProcess_Click(object sender, EventArgs e)
+        {
+            update_controls();
+        }
+
+        private void btnSetPar_Click(object sender, EventArgs e)
+        {
+            SvBarRecParams par = new SvBarRecParams();
+            RecogEngine2SDK.SvEngineGetParam(ref par);
+            par.isAllSame = chkSame.Checked;
+            par.minStringLength = (int)spinMinLen.Value;
+            RecogEngine2SDK.SvEngineSetParam(par);
         }
     }
 }

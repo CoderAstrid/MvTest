@@ -43,9 +43,9 @@
 #include "BCG/BCGCBProInc.h"
 
 #if defined(_DEBUG)
-#	pragma comment(lib, "RecogEngined.lib")
+#	pragma comment(lib, "RecogEngine2d.lib")
 #else
-#	pragma comment(lib, "RecogEngine.lib")
+#	pragma comment(lib, "RecogEngine2.lib")
 #endif
 
 #ifdef _UNICODE
